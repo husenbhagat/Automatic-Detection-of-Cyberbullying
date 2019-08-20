@@ -43,19 +43,19 @@ def sentiment_dict(sentimentData):
 def home(request):
     return render(request,'home.html',{})
 def chart(request):
-	directory = '/home/ubuntu/Desktop/SVM/dataset_training/bully'
+	directory = '/../../../SVM/dataset_training/bully'
 	number_of_files = len([item for item in os.listdir(directory) if os.path.isfile(os.path.join(directory, item))])
 	flb= number_of_files
-	directory = '/home/ubuntu/Desktop/SVM/dataset_training/nonbully'
+	directory = '/../../../SVM/dataset_training/nonbully'
 	number_of_files = len([item for item in os.listdir(directory) if os.path.isfile(os.path.join(directory, item))])
 	flt= number_of_files
 	return render(request,'doughnut.html',{'tweets':flt,'bully':flb})
 
 def dashboard(request):
-	directory = '/home/ubuntu/Desktop/SVM/dataset_training/bully'
+	directory = '/../../../SVM/dataset_training/bully'
 	number_of_files = len([item for item in os.listdir(directory) if os.path.isfile(os.path.join(directory, item))])
 	flb= number_of_files
-	directory = '/home/ubuntu/Desktop/SVM/dataset_training/nonbully'
+	directory = '/../../../SVM/dataset_training/nonbully'
 	number_of_files = len([item for item in os.listdir(directory) if os.path.isfile(os.path.join(directory, item))])
 	flt=flb+number_of_files
 	lines1=[]
@@ -90,9 +90,9 @@ def form(request):
 def return_data(request):
 	clf = sklearn.svm.LinearSVC()
 
-	training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_training")
-	f=open("/home/ubuntu/Desktop/SVM/dataset_prediction/test/lol.txt",'w')
-	fil=open("/home/ubuntu/Desktop/SVM/data_print",'a')
+	training_files = sklearn.datasets.load_files("/../../../SVM/dataset_training")
+	f=open("/../../../SVM/dataset_prediction/test/lol.txt",'w')
+	fil=open("/../../../SVM/data_print",'a')
 	fil.write("\n")
 	text=request.POST.get('text')
 	
@@ -103,7 +103,7 @@ def return_data(request):
 	
 	#print training_files.data
 
-	predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_prediction")
+	predict_files = sklearn.datasets.load_files("/../../../SVM/dataset_prediction")
 
 	#print "Predict",predict_files.data
 
@@ -123,11 +123,11 @@ def return_data(request):
 	#print "OUT",y_predicted
 	if y_predicted[0]==0:
 		
-		f1=open("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction/test/lol.txt",'w')
+		f1=open("/../../../SVM_Multi/dataset_prediction/test/lol.txt",'w')
 		f1.write(text)
 		f1.close()
 		cn=0
-		with open("/home/ubuntu/Desktop/SVM/pande.txt") as f:
+		with open("/../../../SVM/pande.txt") as f:
 			#print "HOLA1",text
 			for line in f:
 				#print "HOLA2", line
@@ -138,24 +138,24 @@ def return_data(request):
 					cn=1
 		if (cn==0):
 			num=random.randint(0,100000000)
-			fl=open("/home/ubuntu/Desktop/SVM/dataset_training/bully/"+str(num)+".txt",'w')
+			fl=open("/../../../SVM/dataset_training/bully/"+str(num)+".txt",'w')
 			fl.write(text)
 			fl.close()
-			f3 = open("/home/ubuntu/Desktop/SVM/pande.txt",'a')
+			f3 = open("/../../../SVM/pande.txt",'a')
 			f3.write("\n"+text)
 			f3.close()
 			
-			fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction/lol.txt",'w')
+			fl=open("/../../../SVM_Multi/dataset_prediction/lol.txt",'w')
 			fl.write(text)
 			fl.close()
 			
 			clf = sklearn.svm.LinearSVC()
 
-			training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_training")
+			training_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_training")
 
 	#print training_files.data
 
-			predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_prediction")
+			predict_files = sklearn.datasets.load_files("/../../../SVM/dataset_prediction")
 
 
 			vectorizer = TfidfVectorizer(encoding='utf-8')
@@ -170,46 +170,38 @@ def return_data(request):
 			y= OneVsOneClassifier(LinearSVC(random_state=0)).fit(X_t,training_files.target).predict(X_p)	
 			if (y[0]==0):
 				num=random.randint(0,100000000)
-				fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/1/"+str(num)+".txt",'w')
+				fl=open("/../../../SVM_Multi/dataset_training/1/"+str(num)+".txt",'w')
 				fl.write(text)
 				fl.close()
 		
 			elif (y[0]==1):
 				num=random.randint(0,100000000)
-				fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/2/"+str(num)+".txt",'w')
+				fl=open("/../../../SVM_Multi/dataset_training/2/"+str(num)+".txt",'w')
 				fl.write(text)
 				fl.close()
 			elif (y[0]==2):
 				num=random.randint(0,100000000)
-				fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/3/"+str(num)+".txt",'w')
+				fl=open("/../../../SVM_Multi/dataset_training/3/"+str(num)+".txt",'w')
 				fl.write(text)
 				fl.close()
 
 
 		
-		os.system("rm /home/ubuntu/Desktop/SVM_Multi/dataset_prediction/test/lol.txt~")
+		os.system("rm /../../../SVM_Multi/dataset_prediction/test/lol.txt~")
 		clf = sklearn.svm.LinearSVC()
 
-		training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_training")
+		training_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_training")
 
-		#print training_files.data
 
-		predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction")
+		predict_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_prediction")
 
-		#print "Predict",predict_files.data
 
 		vectorizer = TfidfVectorizer(encoding='utf-8')
 		X_t = vectorizer.fit_transform((open(f).read() for f in training_files.filenames))
-		#print("n_samples: %d, n_features: %d" % X_t.shape)
 		assert sp.issparse(X_t)
-	
-	
-
-
 		X_p = vectorizer.transform((open(f).read()
 		for f in predict_files.filenames))
 		y1=OneVsOneClassifier(LinearSVC(random_state=0)).fit(X_t,training_files.target).predict(X_p)
-		#print y1
 		if y1==0:
 			fil=open("/home/ubuntu/Desktop/SVM/optional_data_print",'a')
 			fil.write(text)
@@ -222,8 +214,8 @@ def return_data(request):
 		elif y1==2:
 			return render(request,'output.html',{'pred':"Our system has detected some very harmful content in your post which might hurt the users sentiments. Keeping this in mind your posting privileges have been suspended for a week . You cannot post another message until then. You can still continue to surf. Repeated posting of such highly offensive content will lead to a report being generated and sent to the concerned authorities. You will be redirected to depression chat room for online help.",'val':False,'l':True})
 	else:
-		tweets = tweet_dict("/home/ubuntu/Desktop/SVM/dataset_prediction/test/lol.txt")
-    		sentiment = sentiment_dict("/home/ubuntu/Desktop/SentiNet/AFINN-111.txt")
+		tweets = tweet_dict("/../../../SVM/dataset_prediction/test/lol.txt")
+    		sentiment = sentiment_dict("/../../../SentiNet/AFINN-111.txt")
     
     		for index in range(len(tweets)):
         
@@ -241,96 +233,66 @@ def return_data(request):
                     
 
 
-        	#print tweets[index] + " --- "+ str(sent_score)
-		#print str(sent_score)
-		if (sent_score < 0):
-			f1=open("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction/test/lol.txt",'w')
+        	if (sent_score < 0):
+			f1=open("/../../../SVM_Multi/dataset_prediction/test/lol.txt",'w')
 			f1.write(text)
 			f1.close()
 			cn=0
-			with open("/home/ubuntu/Desktop/SVM/pande.txt") as f:
-				#print "HOLA1",text
+			with open("/../../../SVM/pande.txt") as f:
 				for line in f:
-					#print "HOLA2", line
-			
 					if (text == line.strip("\n")):
-						#print "HOLA3"
-						#print line
 						cn=1
 			if (cn==0):
 				num=random.randint(0,100000000)
-				fl=open("/home/ubuntu/Desktop/SVM/dataset_training/bully/"+str(num)+".txt",'w')
+				fl=open("/../../../SVM/dataset_training/bully/"+str(num)+".txt",'w')
 				fl.write(text)
 				fl.close()
-				f3 = open("/home/ubuntu/Desktop/SVM/pande.txt",'a')
+				f3 = open("/../../../SVM/pande.txt",'a')
 				f3.write("\n"+text)
 				f3.close()
 			
-				fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction/lol.txt",'w')
+				fl=open("/../../../SVM_Multi/dataset_prediction/lol.txt",'w')
 				fl.write(text)
 				fl.close()
 			
 				clf = sklearn.svm.LinearSVC()
 
-				training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_training")
-
-		#print training_files.data
-
-				predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_prediction")
-
-
+				training_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_training")
+				predict_files = sklearn.datasets.load_files("/../../../SVM/dataset_prediction")
 				vectorizer = TfidfVectorizer(encoding='utf-8')
 				X_t = vectorizer.fit_transform((open(f).read() for f in training_files.filenames))
 				assert sp.issparse(X_t)
-	
-	
-
-
-				X_p = vectorizer.transform((open(f).read() for f in predict_files.filenames))
-	
+				X_p = vectorizer.transform((open(f).read() for f in predict_files.filenames))	
 				y= OneVsOneClassifier(LinearSVC(random_state=0)).fit(X_t,training_files.target).predict(X_p)	
 				if (y[0]==0):
 					num=random.randint(0,100000000)
-					fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/1/"+str(num)+".txt",'w')
+					fl=open("/../../../SVM_Multi/dataset_training/1/"+str(num)+".txt",'w')
 					fl.write(text)
 					fl.close()
 		
 				elif (y[0]==1):
 					num=random.randint(0,100000000)
-					fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/2/"+str(num)+".txt",'w')
+					fl=open("/../../../SVM_Multi/dataset_training/2/"+str(num)+".txt",'w')
 					fl.write(text)
 					fl.close()
 				elif (y[0]==2):
 					num=random.randint(0,100000000)
-					fl=open("/home/ubuntu/Desktop/SVM_Multi/dataset_training/3/"+str(num)+".txt",'w')
+					fl=open("/../../../SVM_Multi/dataset_training/3/"+str(num)+".txt",'w')
 					fl.write(text)
 					fl.close()
 
-			os.system("rm /home/ubuntu/Desktop/SVM_Multi/dataset_prediction/test/lol.txt~")
+			os.system("rm /../../../SVM_Multi/dataset_prediction/test/lol.txt~")
 			clf = sklearn.svm.LinearSVC()
-
-			training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_training")
-
-			#print training_files.data
-
-			predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM_Multi/dataset_prediction")
-
-			#print "Predict",predict_files.data
-
+			training_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_training")
+			predict_files = sklearn.datasets.load_files("/../../../SVM_Multi/dataset_prediction")
 			vectorizer = TfidfVectorizer(encoding='utf-8')
 			X_t = vectorizer.fit_transform((open(f).read() for f in training_files.filenames))
-			#print("n_samples: %d, n_features: %d" % X_t.shape)
 			assert sp.issparse(X_t)
-	
-	
-
-
 			X_p = vectorizer.transform((open(f).read()
 			for f in predict_files.filenames))
 			y1=OneVsOneClassifier(LinearSVC(random_state=0)).fit(X_t,training_files.target).predict(X_p)
-			#print y1
 			if y1==0:
-				fil=open("/home/ubuntu/Desktop/SVM/optional_data_print",'a')
+				fil=open("/../../../SVM/optional_data_print",'a')
 				fil.write(text)
 				fil.write("\n")
 				fil.close()
@@ -341,8 +303,7 @@ def return_data(request):
 			elif y1==2:
 				return render(request,'output.html',{'pred':"Our system has detected some very harmful content in your post which might hurt the users sentiments. Keeping this in mind your posting privileges have been suspended for a week . You cannot post another message until then. You can still continue to surf. Repeated posting of such highly offensive content will lead to a report being generated and sent to the concerned authorities. You will be redirected to depression chat room for online help.",'val':False,'l':True})
 		else:
-			fil=open("/home/ubuntu/Desktop/SVM/data_print",'a')
+			fil=open("/../../../SVM/data_print",'a')
 			fil.write(text)
 			fil.close()
 		return HttpResponseRedirect("http://127.0.0.1:8000/home/form/")
-		#return render(request,'output.html',{'pred':"Dont be a noob",'val':0})
