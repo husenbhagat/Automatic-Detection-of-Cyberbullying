@@ -12,11 +12,11 @@ from sklearn.metrics import precision_recall_fscore_support,accuracy_score
 
 clf = sklearn.svm.LinearSVC()
 
-training_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_training")
+training_files = sklearn.datasets.load_files("/../../../SVM/dataset_training")
 
 #print training_files.data
 
-predict_files = sklearn.datasets.load_files("/home/ubuntu/Desktop/SVM/dataset_prediction")
+predict_files = sklearn.datasets.load_files("/../../../SVM/dataset_prediction")
 
 print "Predict",predict_files.data
 
